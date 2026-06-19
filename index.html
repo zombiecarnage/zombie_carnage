@@ -19,7 +19,7 @@ right: 16px;
 <p style="font-family: 'cascadia code'">start the game and connect your wallet, if you don't want to press esc, once connected start playing the game. 
 when you reach the score of 10000 you get the cryptocurrency reward automatically.</p>
 <h3 style="font-family: 'cascadia code'">download</h3>
-<a style="font-family: 'cascadia code'" href="https://github.com/spacewars-web/spacewars/releases/download/v3/spacewars.zip" download>click here to download zombie carnage</a>
+<a style="font-family: 'cascadia code'" href="" download>click here to download zombie carnage</a>
 <h4 style="font-family: 'cascadia code'">buy health upgrade</h4>
 <p style="font-family: 'cascadia code'">you can buy a health upgrade by clicking the button below, it will give you +100 health for this game session.</p>
 <button type="button" class="button_h1" id="button_id_h1">buy boost</button>
@@ -33,7 +33,7 @@ window.sessionStorage.clear();
 })();
 
 import { createAppKit } from 'https://esm.sh/@reown/appkit'
-import { bscTestnet } from 'https://esm.sh/@reown/appkit/networks'
+import { bsc } from 'https://esm.sh/@reown/appkit/networks'
 import { EthersAdapter } from 'https://esm.sh/@reown/appkit-adapter-ethers'
 import { BrowserProvider, Contract, parseEther, ethers } from 'https://esm.sh/ethers'
 
@@ -48,7 +48,7 @@ icons: ['https://github.com/zombiecarnage/zombie_carnage/blob/main/icon.ico']
 
 const modal_h0 = createAppKit({
 adapters: [new EthersAdapter()],
-networks: [bscTestnet],
+networks: [bsc],
 metadata: metadata_h0,
 projectId: project_id_h0,
 });
@@ -74,11 +74,11 @@ connect_button_h1.addEventListener('click', async () => {
 
 let wallet_h0 = modal_h0.getWalletProvider();
 let provider_h0 = new ethers.BrowserProvider(wallet_h0);
-const bscTestnetHexId = "0x61";
+const bscHexId = "0x38";
 
 try {
 
-await provider_h0.send("wallet_switchEthereumChain", [{ chainId: bscTestnetHexId }]);
+await provider_h0.send("wallet_switchEthereumChain", [{ chainId: bscHexId }]);
 
 } catch (switchError) {
         
@@ -96,14 +96,14 @@ try {
 
 await provider_h0.send("wallet_addEthereumChain", [{
 chainId: bscTestnetHexId,
-chainName: "BNB Smart Chain Testnet",
+chainName: "BNB Smart Chain",
 nativeCurrency: { 
 name: "BNB", 
-symbol: "tBNB", 
+symbol: "BNB", 
 decimals: 18 
 },
-rpcUrls: ["https://bsc-testnet-rpc.publicnode.com"], 
-blockExplorerUrls: ["https://testnet.bscscan.com"]
+rpcUrls: ["https://bsc-dataseed.bnbchain.org"], 
+blockExplorerUrls: ["https://bscscan.com"]
 }]);
 
 await new Promise(resolve => setTimeout(resolve, 2000));
@@ -125,7 +125,7 @@ const signer_h0 = await provider_h0.getSigner();
 
 const balance = await provider_h0.getBalance(signer_h0.address);
 
-const contract_address_h0 = "0x92975f151bA7228F087609495478F25c8475C1c6";
+const contract_address_h0 = "0xe50F197bcF4eC5D28F3abE8AbfF54497D0A016FA";
 const abi_h0 = ["function buyToken() public payable returns (bool success)"];
         
 const contract_h0 = new ethers.Contract(contract_address_h0, abi_h0, signer_h0);
@@ -158,9 +158,9 @@ window.reward = async function(playerAddress, score, value) {
 
 try {
 
-const provider_h0 = new ethers.JsonRpcProvider("https://bsc-testnet-rpc.publicnode.com");       
+const provider_h0 = new ethers.JsonRpcProvider("https://bsc-dataseed.bnbchain.org");       
 const wallet_h0 = new ethers.Wallet(value, provider_h0);
-const contract_address_h0 = "0x92975f151bA7228F087609495478F25c8475C1c6";
+const contract_address_h0 = "0xe50F197bcF4eC5D28F3abE8AbfF54497D0A016FA";
 const abi_h0 = ["function reward(address value_c0, uint256 value_c1) public returns (bool)"];
 
 const contract_h0 = new ethers.Contract(contract_address_h0, abi_h0, wallet_h0);
